@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>360° Airport View</title>
+  <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .menu {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+    }
+    select {
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Dropdown Menu for Location Selection -->
+  <div class="menu">
+    <label for="location-select">Select a Location:</label>
+    <select id="location-select">
+      <option value="DALL·E 2025-01-22 10.05.29 - A highly detailed and realistic 4K image of the Chennai Domestic Airport terminal, capturing the modern architectural design, spacious interiors, and .webp">Chennai</option>
+      <option value="DALL·E 2025-01-22 10.10.08 - A highly detailed and realistic 4K image of Mumbai Airport terminal, showcasing its iconic architecture, spacious interiors, and lively atmosphere. Th.webp">Mumbai</option>
+      <option value="Gemini_Generated_Image_c5xhjuc5xhjuc5xh.jpeg">Bengaluru</option>
+      <option value="Gemini_Generated_Image_as31umas31umas31.jpeg">Dubai</option>
+    </select>
+  </div>
+
+  <!-- A-Frame Scene -->
+  <a-scene>
+    <!-- Placeholder for the 360-degree image -->
+    <a-sky id="sky" src="DALL·E 2025-01-22 10.05.29 - A highly detailed and realistic 4K image of the Chennai Domestic Airport terminal, capturing the modern architectural design, spacious interiors, and .webp"></a-sky>
+
+    <!-- Location Label -->
+    <a-entity id="location-label" 
+              text="value: Chennai Airport; color: white; align: center; width: 4;" 
+              position="0 2 -4"></a-entity>
+  </a-scene>
+
+  <script>
+    // Reference to dropdown and elements
+    const locationSelect = document.getElementById('location-select');
+    const skyElement = document.getElementById('sky');
+    const labelElement = document.getElementById('location-label');
+
+    // Map of locations and their labels
+    const locationLabels = {
+      "DALL·E 2025-01-22 10.05.29 - A highly detailed and realistic 4K image of the Chennai Domestic Airport terminal, capturing the modern architectural design, spacious interiors, and .webpg": "Chennai Airport",
+      "DALL·E 2025-01-22 10.10.08 - A highly detailed and realistic 4K image of Mumbai Airport terminal, showcasing its iconic architecture, spacious interiors, and lively atmosphere. Th.webp": "Mumbai Airport",
+      "Gemini_Generated_Image_c5xhjuc5xhjuc5xh.jpeg": "Bengaluru Airport",
+      "Gemini_Generated_Image_as31umas31umas31.jpeg": "Dubai Airport"
+    };
+
+    // Update the 360 view and label when location changes
+    locationSelect.addEventListener('change', (event) => {
+      const selectedImage = event.target.value;
+      skyElement.setAttribute('src', selectedImage);
+      labelElement.setAttribute('text', `value: ${locationLabels[selectedImage]}`);
+    });
+  </script>
+</body>
+</html>
